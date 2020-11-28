@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  mysqldb:
+    image: mysqldb
+    build: ./database
+    container_name: mysql
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_USER=pc2project
+      - MYSQL_PASSWORD=password
+      - MYSQL_DATABASE=pc2project
+    networks: 
+      - app
+
+  jupyter:
+    image: continuumio/anaconda3
+    command: jupyter notebook --port=8888 --no-browser --ip=0.0.0.0 --allow-root
+    container_name: jupyter
+    networks: 
+      - app
+    depends_on: 
+      - mysqldb
+    volumes: 
+      - ./notebooks:/notebooks
+    ports: 
+      - 8888:8888
+
+  dash:
+    build: ./py
+    depends_on: 
+      - mysqldb
+    container_name: dash
+    networks: 
+      - app
+    ports:
+      - 8050:8050
+    environment: 
+      - VIRTUAL_HOST=dash.arthoughts.local
+    restart: on-failure
+
+networks: 
+  app:
+    driver: bridge
