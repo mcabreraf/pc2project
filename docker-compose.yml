@@ -17,7 +17,7 @@ services:
 
   jupyter:
     image: continuumio/anaconda3
-    command: jupyter notebook --port=8888 --no-browser --ip=0.0.0.0 --allow-root
+    command: jupyter notebook --port=8888 --no-browser --ip=0.0.0.0 --allow-root --NotebookApp.token='' --NotebookApp.password=''
     container_name: jupyter
     networks: 
       - app
