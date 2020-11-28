@@ -11,3 +11,5 @@ Be aware of the following recommendations:
 4. The Jupyter service needs a token when accesing to it. This token is automatically created by the server and can be located in the console of the container or by typing the command 'jupyter notebook list' in the CLI of the container.
 
 And that's it! Enjoy!
+
+Manuel Cabrera, Carla Duran, Miguel Lombardi
